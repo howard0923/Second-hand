@@ -5,3 +5,4 @@
 2.終端機切換到Front-end資料夾  
 3.輸入npm install  
 4.輸入npm start  
+youtube連結：https://www.youtube.com/watch?v=pWaJ1R3yZjU
