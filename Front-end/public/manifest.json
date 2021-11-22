@@ -1,0 +1,36 @@
+{
+    "short_name": "由簡入奢",
+    "name": "由簡入奢",
+    "icons": [
+        {
+            "src": "images/LOGOV1/logo_og@48.jpg",
+            "type": "image/jpg",
+            "sizes": "48 × 48"
+        },
+        {
+            "src": "images/LOGOV1/logo_og@96.jpg",
+            "type": "image/jpg",
+            "sizes": "96x96"
+        },
+        {
+            "src": "images/LOGOV1/logo_og@144.jpg",
+            "type": "image/jpg",
+            "sizes": "144x144"
+        },
+        {
+            "src": "images/LOGOV1/logo_og@192.jpg",
+            "type": "image/jpg",
+            "sizes": "192x192"
+        },
+        {
+            "src": "images/LOGOV1/logo_og@512.jpg",
+            "type": "image/jpg",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "theme_color": "#1f2022",
+    "background_color": "#1f2022"
+}

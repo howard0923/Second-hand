@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/jpg" href="images/LOGOV1/logo_og@144.jpg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="PWA 精品訂閱" />
+  <link rel="apple-touch-icon" href="images/LOGOV1/logo_og@144.jpg" />
+  <link rel="manifest" href="manifest.json" />
+ 
+  <title>由簡入奢PWA</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script>
+    if('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./serviceworker.js')
+                    .then((reg) => console.log('Success: ', reg.scope))
+                    .catch((err) => console.log('Failure: ', err));
+            })
+        }
+  </script>
+</body>
+
+</html>
