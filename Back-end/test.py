@@ -10,11 +10,11 @@ from dataset_handler import DatasetHandler
 
 
 db_settings = {
-    "host": "140.117.71.141",
+    "host": "",
     "port": 3306,
-    "user": "team",
-    "password": "520",
-    "db": "test",
+    "user": "",
+    "password": "",
+    "db": "",
     "charset": "utf8"
 }
 
