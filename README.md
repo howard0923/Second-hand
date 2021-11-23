@@ -5,11 +5,11 @@ Front-end->
 1.下載檔案  
 2.終端機切換到Front-end資料夾  
 3.輸入npm install  
-4.輸入npm start 
-Back-end->
-1.將test.sql匯入資料庫
-2.將後端資料夾中db.js更改為本機IP
-3.終端機切換至Back-end資料夾
-4.輸入npm install
-5.輸入npm run devStart
+4.輸入npm start  
+Back-end->  
+1.將test.sql匯入資料庫  
+2.將後端資料夾中db.js更改為本機IP  
+3.終端機切換至Back-end資料夾  
+4.輸入npm install  
+5.輸入npm run devStart  
 youtube連結：https://www.youtube.com/watch?v=pWaJ1R3yZjU
