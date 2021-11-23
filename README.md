@@ -5,3 +5,5 @@
 2.終端機切換到Front-end資料夾  
 3.輸入npm install  
 4.輸入npm start  
+5.由於後端服務器是架設於學校server，有時無法正常使用，敬請見諒。  
+youtube連結：https://www.youtube.com/watch?v=pWaJ1R3yZjU
