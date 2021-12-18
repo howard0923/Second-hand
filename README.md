@@ -1,7 +1,6 @@
 操作方法：  
 Front-end->  
-1.npm install    
-2.npm start  
+1.npm install 2.npm start  
 Back-end->  
 1.將test.sql匯入資料庫  
 2.db.js更改為本機IP  
