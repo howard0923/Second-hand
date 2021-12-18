@@ -1,4 +1,4 @@
-import React, { useState, useRef,useEffect} from 'react';
+import React, { useState, useRef} from 'react';
 import { useOnClickOutside } from '../commons/hook';
 import { Link, withRouter } from 'react-router-dom';
 import Burger from './Burger/Burger';

@@ -1,17 +1,88 @@
 import React, { useState } from "react"
 import { toast } from "react-toastify"
-import axios from "axios"
+import axios from "../commons/axios"
 import Layout from "Layout"
 import "../css/verify.css"
+import CloudinaryUpload from "./cloudinary/cloudinaryUpload"
+import update from 'react-addons-update';
 
 class AddInventory extends React.Component {
-  state = {
+  constructor(props){
+    super(props);
+    this.state = {
+      org_brand: [],
+    org_color: [],
+    org_type: [],
     name: "",
+    brand: null,
+    color:null,
+    type: null,
+    length: null,
+    width: null,
+    height:null,
+    detail: null,
+    note: null,
     price: "",
-    tags: "",
-    image: "",
-    status: "available",
+    buyPrice: "",
+    level: null,
+    img1: [],
+    img2: [],
+    img3: [],
+    img4: [],
+    img5: [],
+    img6: [],
+    img7: [],
+    img8: [],
+    image1: [],
+    image2: [],
+    image3: [],
+    image4: [],
+    image5: [],
+    image6: [],
+    image7: [],
+    image8: [],
+    file:[],
+    status: "available"
+    };
   }
+ 
+  getBrand = async () => {
+    try {
+      const response = await axios.get("/api/adminGetBrand")
+      this.setState({ org_brand: response.data })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  getColor = async () => {
+    try {
+      const response = await axios.get("/api/adminGetColor")
+      this.setState({ org_color: response.data })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  getType = async () => {
+    try {
+      const response = await axios.get("/api/adminGetType")
+      this.setState({ org_type: response.data })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  componentDidMount() {
+    this.getBrand();
+    this.getColor();
+    this.getType();
+  }
+
+
+
+
 
   handleChange = (e) => {
     const value = e.target.value
@@ -20,37 +91,50 @@ class AddInventory extends React.Component {
       [name]: value,
     })
   }
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 以下處理圖片上傳預覽及刪除
-  state = {
-    img: "",
-  }
-  imgChange = (e) => {
+
+  imgChange1 = (e) => {
     const file = e.target.files.item(0) // 取得選中檔案們的一個檔案
+    this.setState(update(this.state, {
+      file: {
+        [0]: {
+          $set: file
+        }
+      }
+    }));
     const fileReader = new FileReader() // FileReader為瀏覽器內建類別，用途為讀取瀏覽器選中的檔案
-    fileReader.addEventListener("load", this.imgLoad)
+    fileReader.addEventListener("load", this.imgLoad1)
     if (file != null) {
       fileReader.readAsDataURL(file) // 讀取完檔案後，變成URL
     }
   }
   // e為第31行發出load之事件
-  imgLoad = (e) => {
+  imgLoad1 = (e) => {
     this.setState({
-      img: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
+      image1: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
     })
+   
   }
-  imgDelete = (e) => {
+  imgDelete1 = (e) => {
     e.preventDefault()
     this.setState({
-      img: "",
+      image1: [],
     })
+    delete this.state.file[0];
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  state = {
-    img2: "",
-  }
+
   imgChange2 = (e) => {
     const file = e.target.files.item(0) // 取得選中檔案們的一個檔案
+    this.setState(update(this.state, {
+      file: {
+        [1]: {
+          $set: file
+        }
+      }
+    }));
     const fileReader = new FileReader() // FileReader為瀏覽器內建類別，用途為讀取瀏覽器選中的檔案
     fileReader.addEventListener("load", this.imgLoad2)
     if (file != null) {
@@ -60,18 +144,27 @@ class AddInventory extends React.Component {
   // e為第31行發出load之事件
   imgLoad2 = (e) => {
     this.setState({
-      img2: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
+      image2: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
     })
   }
   imgDelete2 = (e) => {
     e.preventDefault()
     this.setState({
-      img2: "",
+      image2: [],
     })
+    delete this.state.file[1];
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   imgChange3 = (e) => {
     const file = e.target.files.item(0) // 取得選中檔案們的一個檔案
+    this.setState(update(this.state, {
+      file: {
+        [2]: {
+          $set: file
+        }
+      }
+    }));
     const fileReader = new FileReader() // FileReader為瀏覽器內建類別，用途為讀取瀏覽器選中的檔案
     fileReader.addEventListener("load", this.imgLoad3)
     if (file != null) {
@@ -81,18 +174,27 @@ class AddInventory extends React.Component {
   // e為第31行發出load之事件
   imgLoad3 = (e) => {
     this.setState({
-      img3: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
+      image3: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
     })
   }
   imgDelete3 = (e) => {
     e.preventDefault()
     this.setState({
-      img3: "",
+      image3: [],
     })
+    delete this.state.file[2];
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   imgChange4 = (e) => {
     const file = e.target.files.item(0) // 取得選中檔案們的一個檔案
+    this.setState(update(this.state, {
+      file: {
+        [3]: {
+          $set: file
+        }
+      }
+    }));
     const fileReader = new FileReader() // FileReader為瀏覽器內建類別，用途為讀取瀏覽器選中的檔案
     fileReader.addEventListener("load", this.imgLoad4)
     if (file != null) {
@@ -102,18 +204,26 @@ class AddInventory extends React.Component {
   // e為第31行發出load之事件
   imgLoad4 = (e) => {
     this.setState({
-      img4: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
+      image4: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
     })
   }
   imgDelete4 = (e) => {
     e.preventDefault()
     this.setState({
-      img4: "",
+      image4: [],
     })
+    delete this.state.file[3];
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   imgChange5 = (e) => {
     const file = e.target.files.item(0) // 取得選中檔案們的一個檔案
+    this.setState(update(this.state, {
+      file: {
+        [4]: {
+          $set: file
+        }
+      }
+    }));
     const fileReader = new FileReader() // FileReader為瀏覽器內建類別，用途為讀取瀏覽器選中的檔案
     fileReader.addEventListener("load", this.imgLoad5)
     if (file != null) {
@@ -123,18 +233,26 @@ class AddInventory extends React.Component {
   // e為第31行發出load之事件
   imgLoad5 = (e) => {
     this.setState({
-      img5: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
+      image5: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
     })
   }
   imgDelete5 = (e) => {
     e.preventDefault()
     this.setState({
-      img5: "",
+      image5: [],
     })
+    delete this.state.file[4];
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   imgChange6 = (e) => {
     const file = e.target.files.item(0) // 取得選中檔案們的一個檔案
+    this.setState(update(this.state, {
+      file: {
+        [5]: {
+          $set: file
+        }
+      }
+    }));
     const fileReader = new FileReader() // FileReader為瀏覽器內建類別，用途為讀取瀏覽器選中的檔案
     fileReader.addEventListener("load", this.imgLoad6)
     if (file != null) {
@@ -144,39 +262,26 @@ class AddInventory extends React.Component {
   // e為第31行發出load之事件
   imgLoad6 = (e) => {
     this.setState({
-      img6: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
+      image6: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
     })
   }
   imgDelete6 = (e) => {
     e.preventDefault()
     this.setState({
-      img6: "",
+      image6: [],
     })
-  }
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  imgChange6 = (e) => {
-    const file = e.target.files.item(0) // 取得選中檔案們的一個檔案
-    const fileReader = new FileReader() // FileReader為瀏覽器內建類別，用途為讀取瀏覽器選中的檔案
-    fileReader.addEventListener("load", this.imgLoad6)
-    if (file != null) {
-      fileReader.readAsDataURL(file) // 讀取完檔案後，變成URL
-    }
-  }
-  // e為第31行發出load之事件
-  imgLoad6 = (e) => {
-    this.setState({
-      img6: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
-    })
-  }
-  imgDelete6 = (e) => {
-    e.preventDefault()
-    this.setState({
-      img6: "",
-    })
+    delete this.state.file[5];
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   imgChange7 = (e) => {
     const file = e.target.files.item(0) // 取得選中檔案們的一個檔案
+    this.setState(update(this.state, {
+      file: {
+        [6]: {
+          $set: file
+        }
+      }
+    }));
     const fileReader = new FileReader() // FileReader為瀏覽器內建類別，用途為讀取瀏覽器選中的檔案
     fileReader.addEventListener("load", this.imgLoad7)
     if (file != null) {
@@ -186,18 +291,26 @@ class AddInventory extends React.Component {
   // e為第31行發出load之事件
   imgLoad7 = (e) => {
     this.setState({
-      img7: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
+      image7: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
     })
   }
   imgDelete7 = (e) => {
     e.preventDefault()
     this.setState({
-      img7: "",
+      image7: [],
     })
+    delete this.state.file[6];
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   imgChange8 = (e) => {
     const file = e.target.files.item(0) // 取得選中檔案們的一個檔案
+    this.setState(update(this.state, {
+      file: {
+        [7]: {
+          $set: file
+        }
+      }
+    }));
     const fileReader = new FileReader() // FileReader為瀏覽器內建類別，用途為讀取瀏覽器選中的檔案
     fileReader.addEventListener("load", this.imgLoad8)
     if (file != null) {
@@ -207,42 +320,46 @@ class AddInventory extends React.Component {
   // e為第31行發出load之事件
   imgLoad8 = (e) => {
     this.setState({
-      img8: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
+      image8: e.target.result, // 讀取到DataURL後，儲存在result裡面，指定為img
     })
   }
   imgDelete8 = (e) => {
     e.preventDefault()
     this.setState({
-      img8: "",
+      image8: [],
     })
+    delete this.state.file[7];
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  // submit = e => {
-  //   e.preventDefault();
-  //   const product = { ...this.state };
-  //   axios.post('products', product).then(res => {
-  //     this.props.close(res.data);
-  //     toast.success('Add Success');
-  //   });
-  // };
-  submit = (e) => {
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  handleFileUpload = () => {
+    const uploadData = new FormData();
+    const file = this.state.file;
+    for(let i = 0;i < file.length ;i++){
+      uploadData.append("file",file[i]);
+    }
+    CloudinaryUpload(uploadData).then((res) =>{
+        console.log(res)
+    });
+}
+  submit = async (e) => {
     e.preventDefault()
-    const product = { ...this.state }
-    axios.post("http://140.117.71.141:3001/api/insert", product).then((res) => {
+    const { name, brand, color, type, length, width, height, detail, note, price, 
+            buyPrice, level,status } = this.state;
+    try{
+      const res = await axios.post("/api/insert", { name, brand, color, type, length, width, height, 
+                                               detail,note, price, buyPrice, level,status })
       console.log(res)
-      toast.success("Add Success")
-      this.props.history.push("/")
-    })
+      await this.handleFileUpload();
+      toast.success(res.data.message);
+    }catch(error){
+      console.log(error);
+      const message = error.response.data.message
+      toast.error(message)
+    }
+
   }
 
-  // showToast = () => {
-  //   toast('default');
-  //   toast.info('info');
-  //   toast.success('success');
-  //   toast.warning('warning');
-  //   toast.error('error');
-  // };
 
   render() {
     return (
@@ -260,6 +377,7 @@ class AddInventory extends React.Component {
                   name="name"
                   value={this.state.name}
                   onChange={this.handleChange}
+                  required
                 />
               </div>
             </div>
@@ -273,11 +391,14 @@ class AddInventory extends React.Component {
                   onChange={this.handleChange}
                   className="nobackground noborder w60per textright padr6 positionabsolute stayr"
                 >
-                  <option disabled selected hidden>
+                  <option selected >
                     請選擇
                   </option>
-                  <option>coach</option>
-                  <option>gucci</option>
+                  {this.state.org_brand.map((b) => {
+                    return (
+                      <option key={b.brandId} value={b.brandId}>{b.brand}</option>
+                    )
+                  })}
                 </select>
               </div>
             </div>
@@ -290,11 +411,34 @@ class AddInventory extends React.Component {
                   onChange={this.handleChange}
                   className="nobackground noborder w60per textright padr6 positionabsolute stayr"
                 >
-                  <option disabled selected hidden>
+                  <option selected>
                     請選擇
                   </option>
-                  <option>blue</option>
-                  <option>green</option>
+                  {this.state.org_color.map((c) => {
+                    return (
+                      <option key={c.colorId} value={c.colorId}>{c.color}</option>
+                    )
+                  })}
+                </select>
+              </div>
+            </div>
+            <div className="field">
+              <div className="control positionrelative">
+                <label className="productBrand">商品類型</label>
+                <select
+                  name="type"
+                  value={this.state.type}
+                  onChange={this.handleChange}
+                  className="nobackground noborder w60per textright padr6 positionabsolute stayr"
+                >
+                  <option selected>
+                    請選擇
+                  </option>
+                  {this.state.org_type.map((t) => {
+                    return (
+                      <option key={t.typeId} value={t.typeId}>{t.type}</option>
+                    )
+                  })}
                 </select>
               </div>
             </div>
@@ -361,8 +505,8 @@ class AddInventory extends React.Component {
                 <label className="productBrand">商品敘述</label>
                 <textarea
                   className="addtextarea hasbottom h20px nobackground w65per vertical-align-bottom positionabsolute stayr"
-                  name="state"
-                  value={this.state.state}
+                  name="detail"
+                  value={this.state.detail}
                   onChange={this.handleChange}
                 />
               </div>
@@ -389,6 +533,7 @@ class AddInventory extends React.Component {
                   name="price"
                   value={this.state.price}
                   onChange={this.handleChange}
+                  required
                 />
               </div>
             </div>
@@ -400,9 +545,10 @@ class AddInventory extends React.Component {
                 <input
                   type="number"
                   className="w100per hasbottom h30px nobackground"
-                  name="buyprice"
-                  value={this.state.buyprice}
+                  name="buyPrice"
+                  value={this.state.buyPrice}
                   onChange={this.handleChange}
+                  required
                 />
               </div>
             </div>
@@ -435,14 +581,14 @@ class AddInventory extends React.Component {
                       className="displaynone"
                       name="image1"
                       accept="image/gif, image/jpeg, image/png"
-                      value={this.state.image1}
-                      onChange={this.imgChange}
+                      value={this.state.img1}
+                      onChange={this.imgChange1}
                     />
                     <img
                       className="imgframe positionabsolute"
-                      src={this.state.img}
+                      src={this.state.image1}
                     />
-                    <span className="delAvatar" onClick={this.imgDelete}>
+                    <span className="delAvatar" onClick={this.imgDelete1}>
                       x
                     </span>
                     <span className="uploadicon positionabsolute">+ 照片</span>
@@ -457,12 +603,12 @@ class AddInventory extends React.Component {
                       className="displaynone"
                       name="image2"
                       accept="image/gif, image/jpeg, image/png"
-                      value={this.state.image2}
+                      value={this.state.img2}
                       onChange={this.imgChange2}
                     />
                     <img
                       className="imgframe positionabsolute"
-                      src={this.state.img2}
+                      src={this.state.image2}
                     />
                     <span className="delAvatar" onClick={this.imgDelete2}>
                       x
@@ -479,12 +625,12 @@ class AddInventory extends React.Component {
                       className="displaynone"
                       name="image3"
                       accept="image/gif, image/jpeg, image/png"
-                      value={this.state.image3}
+                      value={this.state.img3}
                       onChange={this.imgChange3}
                     />
                     <img
                       className="imgframe positionabsolute"
-                      src={this.state.img3}
+                      src={this.state.image3}
                     />
                     <span className="delAvatar" onClick={this.imgDelete3}>
                       x
@@ -501,12 +647,12 @@ class AddInventory extends React.Component {
                       className="displaynone"
                       name="image4"
                       accept="image/gif, image/jpeg, image/png"
-                      value={this.state.image4}
+                      value={this.state.img4}
                       onChange={this.imgChange4}
                     />
                     <img
                       className="imgframe positionabsolute"
-                      src={this.state.img4}
+                      src={this.state.image4}
                     />
                     <span className="delAvatar" onClick={this.imgDelete4}>
                       x
@@ -523,12 +669,12 @@ class AddInventory extends React.Component {
                       className="displaynone"
                       name="image5"
                       accept="image/gif, image/jpeg, image/png"
-                      value={this.state.image5}
+                      value={this.state.img5}
                       onChange={this.imgChange5}
                     />
                     <img
                       className="imgframe positionabsolute"
-                      src={this.state.img5}
+                      src={this.state.image5}
                     />
                     <span className="delAvatar" onClick={this.imgDelete5}>
                       x
@@ -545,12 +691,12 @@ class AddInventory extends React.Component {
                       className="displaynone"
                       name="image6"
                       accept="image/gif, image/jpeg, image/png"
-                      value={this.state.image6}
+                      value={this.state.img6}
                       onChange={this.imgChange6}
                     />
                     <img
                       className="imgframe positionabsolute"
-                      src={this.state.img6}
+                      src={this.state.image6}
                     />
                     <span className="delAvatar" onClick={this.imgDelete6}>
                       x
@@ -567,12 +713,12 @@ class AddInventory extends React.Component {
                       className="displaynone"
                       name="image7"
                       accept="image/gif, image/jpeg, image/png"
-                      value={this.state.image7}
+                      value={this.state.img7}
                       onChange={this.imgChange7}
                     />
                     <img
                       className="imgframe positionabsolute"
-                      src={this.state.img7}
+                      src={this.state.image7}
                     />
                     <span className="delAvatar" onClick={this.imgDelete7}>
                       x
@@ -589,12 +735,12 @@ class AddInventory extends React.Component {
                       className="displaynone"
                       name="image8"
                       accept="image/gif, image/jpeg, image/png"
-                      value={this.state.image8}
+                      value={this.state.img8}
                       onChange={this.imgChange8}
                     />
                     <img
                       className="imgframe positionabsolute"
-                      src={this.state.img8}
+                      src={this.state.image8}
                     />
                     <span className="delAvatar" onClick={this.imgDelete8}>
                       x
@@ -604,45 +750,6 @@ class AddInventory extends React.Component {
                 </label>
               </div>
             </div>
-            {/* <div className="field">
-              <div className="control">
-                <label className="label">Tags</label>
-                <input
-                  type="text"
-                  className="input"
-                  name="tags"
-                  value={this.state.tags}
-                  onChange={this.handleChange}
-                />
-              </div>
-            </div>
-            <div className="field">
-              <div className="control">
-                <label className="label">Image</label>
-                <input
-                  type="text"
-                  className="input"
-                  name="image"
-                  value={this.state.image}
-                  onChange={this.handleChange}
-                />
-              </div>
-            </div>
-            <div className="field">
-              <div className="control">
-                <label className="label">Status</label>
-                <div className="select is-fullwidth">
-                  <select
-                    name="status"
-                    value={this.state.status}
-                    onChange={this.handleChange}
-                  >
-                    <option>available</option>
-                    <option>unavailable</option>
-                  </select>
-                </div>
-              </div>
-            </div> */}
             <br />
             <div className="field is-grouped is-grouped-centered">
               <div className="control">

@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import axios from 'commons/axios';
+import axios from '../../commons/axios';
 export default function FirstCart(props) {
     const [product, setProduct] = useState([]);
     const [image, setImage] = useState([]);
     //const [planPrice,setPlanPrice] = useState();
     const user = global.auth.getUser() || {}
     const email = user.email;
-    const uId = user.uId;
 
 
     const getCartProduct = async () => {
         try {
-            const result = await axios.post("http://140.117.71.141:3001/api/getCartProduct", { email });
+            const result = await axios.post("/api/getCartProduct", { email });
             setProduct(result.data[0]);
 
         } catch (err) {
@@ -23,9 +21,9 @@ export default function FirstCart(props) {
 
     // const getPlanPrice = async () => {
     //     try {
-    //         const result = await axios.post("http://140.117.71.141:3001/api/userPlan", { uId });
+    //         const result = await axios.post("/api/userPlan", { uId });
     //         const planId = result.data[0].planId;
-    //         const result2 = await axios.post("http://140.117.71.141:3001/api/getPlanPrice",{planId});
+    //         const result2 = await axios.post("/api/getPlanPrice",{planId});
     //         setPlanPrice(result2.data[0].price);
     //     } catch (err) {
     //         console.error(err)
@@ -34,7 +32,7 @@ export default function FirstCart(props) {
 
     const getCartProductImage = async () => {
         try {
-            const resultImage = await axios.post("http://140.117.71.141:3001/api/getCartProductImage", { email });
+            const resultImage = await axios.post("/api/getCartProductImage", { email });
             const imageArray = [];
             for (var i = 0; i < resultImage.data.length; i++) {
                 imageArray.push(resultImage.data[i].image);
@@ -53,11 +51,11 @@ export default function FirstCart(props) {
         // getPlanPrice();
     }, [])
 
-    const { pId, name, price, og_price, level, length, width, height, detail, note } = product;
+    const { pId, name, price} = product;
     const FirstImage = image;
 
     const deleteCart = () => {
-        axios.post("http://140.117.71.141:3001/api/deleteCart", { email, pId }).then(res => {
+        axios.post("/api/deleteCart", { email, pId }).then(res => {
             setProduct([]);
             setImage([]);
         });

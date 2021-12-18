@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from 'Layout';
-import axios from 'commons/axios';
+import axios from '../../commons/axios';
 import { toast } from "react-toastify";
 import { checkPrime } from 'crypto';
 import { chown } from 'fs';
@@ -18,7 +18,7 @@ export default function SubDetail(props) {
 
     const GetPlanContent = async () => {
         try {
-            const result = await axios.post("http://140.117.71.141:3001/api/GetPlanContent", { planId });
+            const result = await axios.post("/api/GetPlanContent", { planId });
             setPlan(result.data[0]);
         }
         catch (error) {
@@ -29,7 +29,7 @@ export default function SubDetail(props) {
     const GetPlanMember = async () => {
         try {
           const result = await axios.post(
-            "http://140.117.71.141:3001/api/GetPlanMember",
+            "/api/GetPlanMember",
             { uId }
           )
           setUserPlan(result.data)
@@ -81,18 +81,20 @@ export default function SubDetail(props) {
     const payForPlan = () => {
         if (!global.auth.isLogin()) {
             props.history.push("/login")
+            toast.info("Please Login First")
             return
         }
         // const current = new Date();
         // const due_date = addDays(current,date);
-        const result = axios.post(`http://140.117.71.141:3001/api/payForPlan`, { planId, uId, date,planStatus,due_date }).then(res => {
-            console.log(res)
+        const result = axios.post(`/api/payForPlan`, { planId, uId, date,planStatus,due_date }).then(res => {
+            //console.log(res)
             if(res.data.message == "信箱尚未驗證"){
                 toast.error(res.data.message)
                 props.history.push("/verify")
             }
             else{
                 toast.success(res.data.message)
+                window.history.go(-2);
             }
         })
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from 'Layout';
 import SubList from '../components/Sub/SubList';
-import axios from 'commons/axios';
+import axios from '../commons/axios';
 import { useLocation } from 'react-router-dom';
 
 const Sub = (props) => {
@@ -9,7 +9,7 @@ const Sub = (props) => {
     //const fromMember = useLocation();
     const GetPlan = async () => {
         try {
-            const result = await axios.get("http://140.117.71.141:3001/api/GetPlan");
+            const result = await axios.get("/api/GetPlan");
             setPlan(result.data);
         }
         catch (error) {

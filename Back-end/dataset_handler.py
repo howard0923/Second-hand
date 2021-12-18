@@ -32,6 +32,22 @@ class DatasetHandler(object):
         
         rat_frame = {}
         usr_ratings = {}
+
+        with conn.cursor() as cursor:
+            
+            sql_user = """SELECT uid FROM user"""
+            
+            cursor.execute(sql_user)
+            
+            result_sql_user = cursor.fetchall()
+            
+            #建立user ratings，並將favorite產品評分為5
+            for usr_id in result_sql_user:
+
+                if int(usr_id[0]) not in usr_ratings:
+                    usr_ratings[int(usr_id[0])] = {}
+            
+            conn.commit()
         
         #讀取資料庫favorite資訊
         with conn.cursor() as cursor:
@@ -45,8 +61,8 @@ class DatasetHandler(object):
             #建立user ratings，並將favorite產品評分為5
             for usr_fav in result_sql_favorite:
 
-                if int(usr_fav[1]) not in usr_ratings:
-                    usr_ratings[int(usr_fav[1])] = {}
+                #if int(usr_fav[1]) not in usr_ratings:
+                    #usr_ratings[int(usr_fav[1])] = {}
                     
                 usr_ratings[int(usr_fav[1])][int(usr_fav[0])] = 5    
             
@@ -216,6 +232,8 @@ class DatasetHandler(object):
         #讀取所有產品編號、名稱回傳
         with conn.cursor() as cursor:
             
+            accident = []
+
             sql_product = """SELECT pId, name FROM product"""
             
             cursor.execute(sql_product)
@@ -227,8 +245,10 @@ class DatasetHandler(object):
                 all_product[int(products[0])] = {}
                     
                 all_product[int(products[0])] = products[1]
+
+                accident.append(int(products[0]))
                     
-            return(all_product)
+            return(all_product, accident)
             
             conn.commit()
             

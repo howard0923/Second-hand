@@ -1,3 +1,4 @@
+from itertools import count
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 import os
@@ -10,11 +11,11 @@ from dataset_handler import DatasetHandler
 
 
 db_settings = {
-    "host": "",
+    "host": "140.117.71.141",
     "port": 3306,
-    "user": "",
-    "password": "",
-    "db": "",
+    "user": "team",
+    "password": "520",
+    "db": "test",
     "charset": "utf8"
 }
 
@@ -30,6 +31,8 @@ product_amount = dataset_handler.count_product(db_settings)
 
 
 uid = int(sys.argv[1])
+
+final_result = []
 
 
 class ContentBasedRecommender(object):
@@ -183,6 +186,8 @@ class ContentBasedRecommender(object):
 
         if len(result) == 0:
             return self.top
+        if len(self.top) == 0:
+            return result
         else:
             for ids in self.top:
                 Count += 1
@@ -203,25 +208,30 @@ class ContentBasedRecommender(object):
 
 
 recommender = ContentBasedRecommender(dataset_handler)
-usr_profile = recommender.create_user_profile(usr_ratings[uid])
-recommender.present_user_profile(usr_profile)
+if not bool(usr_ratings[uid]) == False:
+
+    usr_profile = recommender.create_user_profile(usr_ratings[uid])
+    recommender.present_user_profile(usr_profile)
 
 
-top = recommender.top(usr_profile, usr_ratings[uid], topN=product_amount)
-recommender.present_recommendations(top)
+    top = recommender.top(usr_profile, usr_ratings[uid], topN=product_amount)
+    recommender.present_recommendations(top)
 
 
-item_CF = recommender.itemCF(usr_ratings)
+    item_CF = recommender.itemCF(usr_ratings)
 
-results = recommender.recommend(uid, usr_ratings, product_amount)
+    results = recommender.recommend(uid, usr_ratings, product_amount)
+        
     
-products = dataset_handler.read_product(db_settings)
 
-final_recommend = recommender.combined_recommend(results)
+    final_recommend = recommender.combined_recommend(results)
 
-final_result = []
 
-for item in final_recommend:
-    final_result.append(item)
+    for item in final_recommend:
+        final_result.append(item)
 
-print(final_result)
+    print(final_result)
+
+else:
+    products, aaaaa = dataset_handler.read_product(db_settings)
+    print(aaaaa)

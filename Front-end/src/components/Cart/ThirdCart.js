@@ -1,5 +1,4 @@
-import React,{useState} from 'react';
-import Detail from '../../images/Detail.png';
+import React from 'react';
 import { Link} from 'react-router-dom';
 import Layout from '../../Layout';
 import Customer from 'components/Transaction/Customer';
@@ -7,8 +6,8 @@ import Delivery from 'components/Transaction/Delivery';
 
 export default function ThirdCart(props) {
 
-    const [customer,setCustomer] = useState(props.location.state.customer);
-    const { pId, name, price, og_price, level, length, width, height, detail, note } = props.location.state.product;
+    const customer = props.location.state.customer;
+    const {name, price} = props.location.state.product;
     const FirstImage = props.location.state.image;
     return (
         <React.Fragment>

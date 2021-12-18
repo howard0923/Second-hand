@@ -1,5 +1,4 @@
-import React,{useState,useEffect} from 'react';
-import axios from 'commons/axios';
+import React from 'react';
 
 
 export default function AdminCustomerDetail(props) {

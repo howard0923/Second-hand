@@ -178,8 +178,12 @@ button:hover {
   width: 100%;
 }
 
+.sidebar-menu.open {
+  background: #F5F5F5;
+}
+
 .colorCircle {
-  width: 25vw;
+  width: 93.8px;
   height: auto;
   margin-left: 10px;
   margin-right: 10px;
@@ -247,4 +251,8 @@ button:hover {
 
 .startshop {
   margin-top: 300%;
+}
+
+.centerfirst {
+  flex-direction: column;
 }

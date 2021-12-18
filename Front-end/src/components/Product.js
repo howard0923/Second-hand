@@ -1,6 +1,6 @@
 import React from "react"
 import { withRouter } from "react-router-dom"
-import axios from "axios"
+import axios from "../commons/axios"
 //import { toast } from "react-toastify"
 import { formatPrice } from "commons/helper"
 //import EditInventory from "components/EditInventory"
@@ -25,7 +25,7 @@ class Product extends React.Component {
   //     const user = global.auth.getUser() || {}
   //     const email = user.email
   //     const { id, name, image, price } = this.props.product
-  //     const res = await axios.post("http://140.117.71.141:3001/api/carts", {
+  //     const res = await axios.post("/api/carts", {
   //       email,
   //       id,
   //     })
@@ -39,18 +39,18 @@ class Product extends React.Component {
   //   }
   // }
 
-  renderMangerBtn = () => {
-    const user = global.auth.getUser() || {}
-    if (user.type === 1) {
-      return (
-        <div className="p-head has-text-right" onClick={this.toEdit}>
-          <span className="icon edit-btn">
-            <i className="fas fa-sliders-h"></i>
-          </span>
-        </div>
-      )
-    }
-  }
+  // renderMangerBtn = () => {
+  //   const user = global.auth.getUser() || {}
+  //   if (user.type === 1) {
+  //     return (
+  //       <div className="p-head has-text-right" onClick={this.toEdit}>
+  //         <span className="icon edit-btn">
+  //           <i className="fas fa-sliders-h"></i>
+  //         </span>
+  //       </div>
+  //     )
+  //   }
+  // }
 
   addFavorite = () => {
     if (!global.auth.isLogin()) {
@@ -60,14 +60,14 @@ class Product extends React.Component {
     const user = global.auth.getUser() || {}
     const email = user.email
     const product = this.props.product
-    axios.post(`http://140.117.71.141:3001/api/addFavorite`, { product, email }).then((res) => {
+    axios.post(`/api/addFavorite`, { product, email }).then((res) => {
     })
     this.setState({ isFavorite: !this.state.isFavorite })
   }
 
   deleteFavorite = () => {
     const id = this.props.product.pId
-    axios.delete(`http://140.117.71.141:3001/api/deleteFavorite/${id}`).then((res) => {
+    axios.delete(`/api/deleteFavorite/${id}`).then((res) => {
       console.log(res)
     })
     this.setState({ isFavorite: !this.state.isFavorite })
@@ -78,7 +78,6 @@ class Product extends React.Component {
       available: "product",
       unavailable: "product out-stock",
     }
-    const isFavoriteToDetail = this.props.product.isFavorite;
     return (
       <div className={_pClass[status]}>
         <Link
@@ -96,7 +95,6 @@ class Product extends React.Component {
             </figure>
           </div>
           <div className="p-content">
-            {this.renderMangerBtn()}
 
             <p className="p-tags">{tags}</p>
             <p className="p-name">{name}</p>
@@ -105,7 +103,7 @@ class Product extends React.Component {
         <div className="p-footer positionrelative">
           <p className="price">{formatPrice(price)}</p>
           <span className="icon is-pulled-right ">
-            {this.state.isFavorite == true ? (
+            {this.state.isFavorite === true ? (
               <Heart isActive={this.state.isFavorite} onClick={this.deleteFavorite} />
             ) : (
               <Heart isActive={this.state.isFavorite} onClick={this.addFavorite} />

@@ -21,7 +21,7 @@ import type8 from "../images/img/type8.jpg"
 import type9 from "../images/img/type9.jpg"
 import type10 from "../images/img/type10.png"
 import type12 from "../images/img/type12.png"
-import axios from "commons/axios"
+import axios from "../commons/axios"
 
 import chanel from "../images/img/chanel.png"
 import bally from "../images/img/bally.png"
@@ -40,7 +40,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeColorChange`, {
+      .post(`/api/LikeColorChange`, {
         likeColor,
         email,
       })
@@ -48,7 +48,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("grey").style.borderStyle === "solid") {
           document.getElementById("grey").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeColorDelete`, {
+          axios.post(`/api/LikeColorDelete`, {
             likeColor,
             email,
           })
@@ -62,7 +62,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeColorChange`, {
+      .post(`/api/LikeColorChange`, {
         likeColor,
         email,
       })
@@ -70,7 +70,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("yellow").style.borderStyle === "solid") {
           document.getElementById("yellow").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeColorDelete`, {
+          axios.post(`/api/LikeColorDelete`, {
             likeColor,
             email,
           })
@@ -84,7 +84,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeColorChange`, {
+      .post(`/api/LikeColorChange`, {
         likeColor,
         email,
       })
@@ -92,7 +92,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("red").style.borderStyle === "solid") {
           document.getElementById("red").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeColorDelete`, {
+          axios.post(`/api/LikeColorDelete`, {
             likeColor,
             email,
           })
@@ -106,7 +106,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeColorChange`, {
+      .post(`/api/LikeColorChange`, {
         likeColor,
         email,
       })
@@ -114,7 +114,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("littlepink").style.borderStyle === "solid") {
           document.getElementById("littlepink").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeColorDelete`, {
+          axios.post(`/api/LikeColorDelete`, {
             likeColor,
             email,
           })
@@ -128,7 +128,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeColorChange`, {
+      .post(`/api/LikeColorChange`, {
         likeColor,
         email,
       })
@@ -136,7 +136,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("yellowwhite").style.borderStyle === "solid") {
           document.getElementById("yellowwhite").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeColorDelete`, {
+          axios.post(`/api/LikeColorDelete`, {
             likeColor,
             email,
           })
@@ -150,7 +150,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeColorChange`, {
+      .post(`/api/LikeColorChange`, {
         likeColor,
         email,
       })
@@ -158,7 +158,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("littleblue").style.borderStyle === "solid") {
           document.getElementById("littleblue").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeColorDelete`, {
+          axios.post(`/api/LikeColorDelete`, {
             likeColor,
             email,
           })
@@ -172,7 +172,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeColorChange`, {
+      .post(`/api/LikeColorChange`, {
         likeColor,
         email,
       })
@@ -180,7 +180,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("brown").style.borderStyle === "solid") {
           document.getElementById("brown").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeColorDelete`, {
+          axios.post(`/api/LikeColorDelete`, {
             likeColor,
             email,
           })
@@ -194,7 +194,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeColorChange`, {
+      .post(`/api/LikeColorChange`, {
         likeColor,
         email,
       })
@@ -202,7 +202,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("black").style.borderStyle === "solid") {
           document.getElementById("black").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeColorDelete`, {
+          axios.post(`/api/LikeColorDelete`, {
             likeColor,
             email,
           })
@@ -216,7 +216,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeColorChange`, {
+      .post(`/api/LikeColorChange`, {
         likeColor,
         email,
       })
@@ -224,7 +224,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("white").style.borderStyle === "solid") {
           document.getElementById("white").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeColorDelete`, {
+          axios.post(`/api/LikeColorDelete`, {
             likeColor,
             email,
           })
@@ -238,7 +238,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeColorChange`, {
+      .post(`/api/LikeColorChange`, {
         likeColor,
         email,
       })
@@ -246,7 +246,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("pink").style.borderStyle === "solid") {
           document.getElementById("pink").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeColorDelete`, {
+          axios.post(`/api/LikeColorDelete`, {
             likeColor,
             email,
           })
@@ -262,7 +262,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeTypeChange`, {
+      .post(`/api/LikeTypeChange`, {
         likeType,
         email,
       })
@@ -270,7 +270,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("t1").style.borderStyle === "solid") {
           document.getElementById("t1").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeTypeDelete`, {
+          axios.post(`/api/LikeTypeDelete`, {
             likeType,
             email,
           })
@@ -284,7 +284,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeTypeChange`, {
+      .post(`/api/LikeTypeChange`, {
         likeType,
         email,
       })
@@ -292,7 +292,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("t3").style.borderStyle === "solid") {
           document.getElementById("t3").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeTypeDelete`, {
+          axios.post(`/api/LikeTypeDelete`, {
             likeType,
             email,
           })
@@ -306,7 +306,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeTypeChange`, {
+      .post(`/api/LikeTypeChange`, {
         likeType,
         email,
       })
@@ -314,7 +314,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("t4").style.borderStyle === "solid") {
           document.getElementById("t4").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeTypeDelete`, {
+          axios.post(`/api/LikeTypeDelete`, {
             likeType,
             email,
           })
@@ -328,7 +328,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeTypeChange`, {
+      .post(`/api/LikeTypeChange`, {
         likeType,
         email,
       })
@@ -336,7 +336,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("t5").style.borderStyle === "solid") {
           document.getElementById("t5").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeTypeDelete`, {
+          axios.post(`/api/LikeTypeDelete`, {
             likeType,
             email,
           })
@@ -350,7 +350,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeTypeChange`, {
+      .post(`/api/LikeTypeChange`, {
         likeType,
         email,
       })
@@ -358,7 +358,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("t6").style.borderStyle === "solid") {
           document.getElementById("t6").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeTypeDelete`, {
+          axios.post(`/api/LikeTypeDelete`, {
             likeType,
             email,
           })
@@ -372,7 +372,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeTypeChange`, {
+      .post(`/api/LikeTypeChange`, {
         likeType,
         email,
       })
@@ -380,7 +380,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("t7").style.borderStyle === "solid") {
           document.getElementById("t7").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeTypeDelete`, {
+          axios.post(`/api/LikeTypeDelete`, {
             likeType,
             email,
           })
@@ -394,7 +394,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeTypeChange`, {
+      .post(`/api/LikeTypeChange`, {
         likeType,
         email,
       })
@@ -402,7 +402,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("t8").style.borderStyle === "solid") {
           document.getElementById("t8").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeTypeDelete`, {
+          axios.post(`/api/LikeTypeDelete`, {
             likeType,
             email,
           })
@@ -416,7 +416,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeTypeChange`, {
+      .post(`/api/LikeTypeChange`, {
         likeType,
         email,
       })
@@ -424,7 +424,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("t9").style.borderStyle === "solid") {
           document.getElementById("t9").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeTypeDelete`, {
+          axios.post(`/api/LikeTypeDelete`, {
             likeType,
             email,
           })
@@ -438,7 +438,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeTypeChange`, {
+      .post(`/api/LikeTypeChange`, {
         likeType,
         email,
       })
@@ -446,7 +446,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("t10").style.borderStyle === "solid") {
           document.getElementById("t10").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeTypeDelete`, {
+          axios.post(`/api/LikeTypeDelete`, {
             likeType,
             email,
           })
@@ -460,7 +460,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeTypeChange`, {
+      .post(`/api/LikeTypeChange`, {
         likeType,
         email,
       })
@@ -468,7 +468,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("t12").style.borderStyle === "solid") {
           document.getElementById("t12").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeTypeDelete`, {
+          axios.post(`/api/LikeTypeDelete`, {
             likeType,
             email,
           })
@@ -483,7 +483,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeBrandChange`, {
+      .post(`/api/LikeBrandChange`, {
         likeBrand,
         email,
       })
@@ -491,7 +491,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("b3").style.borderStyle === "solid") {
           document.getElementById("b3").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeBrandDelete`, {
+          axios.post(`/api/LikeBrandDelete`, {
             likeBrand,
             email,
           })
@@ -505,7 +505,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeBrandChange`, {
+      .post(`/api/LikeBrandChange`, {
         likeBrand,
         email,
       })
@@ -513,7 +513,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("b6").style.borderStyle === "solid") {
           document.getElementById("b6").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeBrandDelete`, {
+          axios.post(`/api/LikeBrandDelete`, {
             likeBrand,
             email,
           })
@@ -527,7 +527,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeBrandChange`, {
+      .post(`/api/LikeBrandChange`, {
         likeBrand,
         email,
       })
@@ -535,7 +535,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("b8").style.borderStyle === "solid") {
           document.getElementById("b8").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeBrandDelete`, {
+          axios.post(`/api/LikeBrandDelete`, {
             likeBrand,
             email,
           })
@@ -549,7 +549,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeBrandChange`, {
+      .post(`/api/LikeBrandChange`, {
         likeBrand,
         email,
       })
@@ -557,7 +557,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("b11").style.borderStyle === "solid") {
           document.getElementById("b11").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeBrandDelete`, {
+          axios.post(`/api/LikeBrandDelete`, {
             likeBrand,
             email,
           })
@@ -571,7 +571,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeBrandChange`, {
+      .post(`/api/LikeBrandChange`, {
         likeBrand,
         email,
       })
@@ -579,7 +579,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("b17").style.borderStyle === "solid") {
           document.getElementById("b17").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeBrandDelete`, {
+          axios.post(`/api/LikeBrandDelete`, {
             likeBrand,
             email,
           })
@@ -593,7 +593,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeBrandChange`, {
+      .post(`/api/LikeBrandChange`, {
         likeBrand,
         email,
       })
@@ -601,7 +601,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("b18").style.borderStyle === "solid") {
           document.getElementById("b18").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeBrandDelete`, {
+          axios.post(`/api/LikeBrandDelete`, {
             likeBrand,
             email,
           })
@@ -615,7 +615,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeBrandChange`, {
+      .post(`/api/LikeBrandChange`, {
         likeBrand,
         email,
       })
@@ -623,7 +623,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("b19").style.borderStyle === "solid") {
           document.getElementById("b19").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeBrandDelete`, {
+          axios.post(`/api/LikeBrandDelete`, {
             likeBrand,
             email,
           })
@@ -637,7 +637,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeBrandChange`, {
+      .post(`/api/LikeBrandChange`, {
         likeBrand,
         email,
       })
@@ -645,7 +645,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("b20").style.borderStyle === "solid") {
           document.getElementById("b20").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeBrandDelete`, {
+          axios.post(`/api/LikeBrandDelete`, {
             likeBrand,
             email,
           })
@@ -659,7 +659,7 @@ function SideBar(props) {
     const user = global.auth.getUser() || {}
     const email = user.email
     axios
-      .post(`http://140.117.71.141:3001/api/LikeBrandChange`, {
+      .post(`/api/LikeBrandChange`, {
         likeBrand,
         email,
       })
@@ -667,7 +667,7 @@ function SideBar(props) {
         console.log(res)
         if (document.getElementById("b21").style.borderStyle === "solid") {
           document.getElementById("b21").style.borderStyle = "none"
-          axios.post(`http://140.117.71.141:3001/api/LikeBrandDelete`, {
+          axios.post(`/api/LikeBrandDelete`, {
             likeBrand,
             email,
           })
@@ -697,7 +697,7 @@ function SideBar(props) {
 
   return (
     <div className={`sidebar-menu${props.isMenuOpen === true ? " open" : ""}`}>
-      <div className="columns is-mobile">
+      <div className="columns is-mobile w90per marlr5per">
         <div>
           {/* <button
             type="button"
@@ -724,9 +724,11 @@ function SideBar(props) {
         </div>
       </div>
       <p class="has-text-centered is-size-4">請選擇您喜好的分類</p>
-      <div class="link-top"></div>
+      <div className="w90per marlr5per">
+        <div class="link-top1 mart10px"></div>
+      </div>
       <div className="sidebarmiddle">
-        <div className="sidebarmiddlefont">顏色</div>
+        <div className="sidebarmiddlefont fontxxlarge martb20px">顏色</div>
         <img id="red" src={red} className="colorCircle" onClick={LikeColorRed}></img>
         <img id="littlepink" src={littlepink} className="colorCircle" onClick={LikeColorlittlepink}></img>
         <img id="pink" src={pink} className="colorCircle" onClick={LikeColorpink}></img>
@@ -738,7 +740,7 @@ function SideBar(props) {
         <img id="white" src={white} className="colorCircle" onClick={LikeColorwhite}></img>
         <img id="black" src={black} className="colorCircle" onClick={LikeColorblack}></img>
         <hr></hr>
-        <div className="sidebarmiddlefont">包型</div>
+        <div className="sidebarmiddlefont fontxxlarge martb20px">包型</div>
         <img id="t1" src={type1} className="colorCircle" onClick={Liketype1}></img>
         <img id="t3" src={type3} className="colorCircle" onClick={Liketype3}></img>
         <img id="t4" src={type4} className="colorCircle" onClick={Liketype4}></img>
@@ -750,7 +752,7 @@ function SideBar(props) {
         <img id="t10" src={type10} className="colorCircle" onClick={Liketype10}></img>
         <img id="t12" src={type12} className="colorCircle" onClick={Liketype12}></img>
         <hr></hr>
-        <div className="sidebarmiddlefont">品牌</div>
+        <div className="sidebarmiddlefont fontxxlarge martb20px">品牌</div>
         <img id="b3" src={chanel} className="colorCircle" onClick={Likebrand3}></img>
         <img id="b6" src={bally} className="colorCircle" onClick={Likebrand6}></img>
         <img id="b8" src={lv} className="colorCircle" onClick={Likebrand8}></img>
@@ -761,6 +763,7 @@ function SideBar(props) {
         <img id="b20" src={gucci} className="colorCircle" onClick={Likebrand20}></img>
         <img id="b21" src={prada} className="colorCircle" onClick={Likebrand21}></img>
       </div>
+      <div className="h60px"></div>
     </div>
   )
 }

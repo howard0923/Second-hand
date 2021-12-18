@@ -23,10 +23,7 @@ function Verifygood() {
       if (document.getElementById("uid").value !== "") {
         document.getElementById("uidempty").innerHTML = ""
       }
-    } else if (
-      document.getElementById("uid").value !== "" &&
-      document.getElementById("content").value !== ""
-    ) {
+    } else if (document.getElementById("uid").value !== "" && document.getElementById("content").value !== "") {
       document.getElementById("uidempty").innerHTML = ""
       document.getElementById("contentempty").innerHTML = ""
       Axios.post("https://140.117.71.141:3011/getnfc", {
@@ -56,9 +53,8 @@ function Verifygood() {
     console.log(data.nfctext)
     const Reak_URL = "https://rinkeby.etherscan.io/tx/" + data.nfctext
     const BASE_URL =
-      "https://api-rinkeby.etherscan.io/api?module=proxy&action=eth_getTransactionByHash&txhash=" +
-      data.nfctext
-    document.getElementById("ethlink").innerHTML = "點擊得知乙太坊明細"
+      "https://api-rinkeby.etherscan.io/api?module=proxy&action=eth_getTransactionByHash&txhash=" + data.nfctext
+    document.getElementById("ethlink").innerHTML = "點擊得知以太坊明細"
     document.getElementById("ethlink").setAttribute("href", Reak_URL)
 
     Axios.get(BASE_URL).then((response) => {
@@ -75,19 +71,19 @@ function Verifygood() {
     var hex1 = content.toString()
     var hex = hex1.replace(/0x/g, "") //delete 0x number
     var str = ""
-    for (var i = 0; i < hex.length; i += 2)
-      str += String.fromCharCode(parseInt(hex.substr(i, 2), 16)) //文字處理合約不必要冗贅內容
+    for (var i = 0; i < hex.length; i += 2) str += String.fromCharCode(parseInt(hex.substr(i, 2), 16)) //文字處理合約不必要冗贅內容
     return str
   }
 
   const getipfs = (QM) => {
     //via IPFS api to get pic
-    var imgurl = "https://ipfs.io/ipfs/" + QM //獲取IPFS圖片
-    // var imgurl = "http://localhost:8080/ipfs/" + QM //獲取IPFS圖片
-    
+    // var imgurl = "https://ipfs.io/ipfs/" + QM //獲取IPFS圖片
+    // var imgurl = "https://ipfs.io/ipfs/" + QM + "?filename=" + QM //獲取IPFS圖片
+    var imgurl = "https://ipfs.infura.io/ipfs/" + QM //獲取IPFS圖片
 
-    document.getElementById("pic").innerHTML =
-      '<img className="imgverify1" src="' + imgurl + '"">'
+    // var imgurl = "http://localhost:8080/ipfs/" + QM //獲取IPFS圖片
+
+    document.getElementById("pic").innerHTML = '<img className="imgverify1" src="' + imgurl + '"">'
     document.getElementById("pic").style.lineHeight = "100%"
   }
 
@@ -136,12 +132,7 @@ function Verifygood() {
               <div className="employee">
                 {/* <h3>uId : {value.nfcuid}</h3>
                 <h3>Content : {value.nfctext}</h3> */}
-                <a
-                  id="ethlink"
-                  href=""
-                  onMouseOver={changecolor}
-                  onMouseOut={changecolorout}
-                ></a>
+                <a id="ethlink" href="" onMouseOver={changecolor} onMouseOut={changecolorout}></a>
                 {/* <h3 id="ethlink"></h3> */}
               </div>
             )

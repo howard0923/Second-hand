@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from 'Layout';
 import { Link } from 'react-router-dom';
-import axios from 'commons/axios';
+import axios from '../commons/axios';
 import { cp } from 'fs';
 
 export default function AdminOrder(props) {
@@ -9,7 +9,7 @@ export default function AdminOrder(props) {
     const RequestOrder = async () => {
         try {
             const result = await axios.get(
-                "http://140.117.71.141:3001/api/adminGetOrder"
+                "/api/adminGetOrder"
             )
             setOrder(result.data);
         } catch (err) {

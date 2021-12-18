@@ -3,28 +3,28 @@
     "name": "由簡入奢",
     "icons": [
         {
-            "src": "images/LOGOV1/logo_og@48.jpg",
-            "type": "image/jpg",
+            "src": "images/LOGOV2/iconnew@48.png",
+            "type": "image/png",
             "sizes": "48 × 48"
         },
         {
-            "src": "images/LOGOV1/logo_og@96.jpg",
-            "type": "image/jpg",
+            "src": "images/LOGOV2/iconnew@96.png",
+            "type": "image/png",
             "sizes": "96x96"
         },
         {
-            "src": "images/LOGOV1/logo_og@144.jpg",
-            "type": "image/jpg",
+            "src": "images/LOGOV2/iconnew@144.png",
+            "type": "image/png",
             "sizes": "144x144"
         },
         {
-            "src": "images/LOGOV1/logo_og@192.jpg",
-            "type": "image/jpg",
+            "src": "images/LOGOV2/iconnew@192.png",
+            "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "images/LOGOV1/logo_og@512.jpg",
-            "type": "image/jpg",
+            "src": "images/LOGOV2/iconnew@512.png",
+            "type": "image/png",
             "sizes": "512x512"
         }
     ],

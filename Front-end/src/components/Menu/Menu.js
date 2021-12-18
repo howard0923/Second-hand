@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { bool } from "prop-types"
 import { StyledMenu } from "./Menu.styled"
 import { Link, withRouter } from "react-router-dom"
-import axios from "commons/axios"
+import axios from "../../commons/axios"
 
 const SideMenu = ({ open, setOpen }) => {
   const [subMenu, setSubMenu] = useState(0)
@@ -13,11 +13,11 @@ const SideMenu = ({ open, setOpen }) => {
 
   const toSub = (key) => {
     setSubMenu(subMenu + 1)
-    if (key == "brand") {
+    if (key === "brand") {
       setTypeOfClassify(brand)
-    } else if (key == "color") {
+    } else if (key === "color") {
       setTypeOfClassify(color)
-    } else if (key == "type") {
+    } else if (key === "type") {
       setTypeOfClassify(type)
     }
   }
@@ -26,13 +26,9 @@ const SideMenu = ({ open, setOpen }) => {
     setSubMenu(subMenu - 1)
   }
 
-  const resetMenu = () => {
-    setSubMenu(0)
-  }
-
   const RequestBrand = async () => {
     try {
-      const result = await axios.get("http://140.117.71.141:3001/api/getBrand")
+      const result = await axios.get("/api/getBrand")
       setBrand(result.data)
     } catch (err) {
       console.error(err)
@@ -41,7 +37,7 @@ const SideMenu = ({ open, setOpen }) => {
 
   const RequestColor = async () => {
     try {
-      const result = await axios.get("http://140.117.71.141:3001/api/getColor")
+      const result = await axios.get("/api/getColor")
       setColor(result.data)
     } catch (err) {
       console.error(err)
@@ -50,7 +46,7 @@ const SideMenu = ({ open, setOpen }) => {
 
   const RequestType = async () => {
     try {
-      const result = await axios.get("http://140.117.71.141:3001/api/getType")
+      const result = await axios.get("/api/getType")
       setType(result.data)
     } catch (err) {
       console.error(err)
@@ -73,7 +69,7 @@ const SideMenu = ({ open, setOpen }) => {
           </React.Fragment>
         )}
 
-        {subMenu == 0 && !global.auth.isLogin() && (
+        {subMenu === 0 && !global.auth.isLogin() && (
           <React.Fragment>
             <Link onClick={() => toSub()}>
               <nobr>
@@ -92,7 +88,7 @@ const SideMenu = ({ open, setOpen }) => {
           </React.Fragment>
         )}
 
-        {subMenu == 1 && !global.auth.isLogin() && (
+        {subMenu === 1 && !global.auth.isLogin() && (
           <React.Fragment>
             <Link onClick={() => goBack()}>
               <i class="fas fa-chevron-left"></i>
@@ -117,7 +113,7 @@ const SideMenu = ({ open, setOpen }) => {
           </React.Fragment>
         )}
 
-        {subMenu == 2 && !global.auth.isLogin() && (
+        {subMenu === 2 && !global.auth.isLogin() && (
           <React.Fragment>
             <Link onClick={() => goBack()}>
               <i className="fas fa-chevron-left"></i>
@@ -142,7 +138,7 @@ const SideMenu = ({ open, setOpen }) => {
           </React.Fragment>
         )}
 
-        {subMenu == 0 && (global.auth.getUser() || {}).isStaff === 0 && (
+        {subMenu === 0 && (global.auth.getUser() || {}).isStaff === 0 && (
                     <React.Fragment>
                     <Link onClick={() => toSub()}>
                       <nobr>
@@ -161,7 +157,7 @@ const SideMenu = ({ open, setOpen }) => {
                   </React.Fragment>
         )}
 
-        {subMenu == 1 && (global.auth.getUser() || {}).isStaff === 0 && (
+        {subMenu === 1 && (global.auth.getUser() || {}).isStaff === 0 && (
           <React.Fragment>
           <Link onClick={() => goBack()}>
             <i class="fas fa-chevron-left"></i>
@@ -186,7 +182,7 @@ const SideMenu = ({ open, setOpen }) => {
         </React.Fragment>
         )}
 
-        {subMenu == 2 && (global.auth.getUser() || {}).isStaff === 0 && (
+        {subMenu === 2 && (global.auth.getUser() || {}).isStaff === 0 && (
           <React.Fragment>
             <Link onClick={() => goBack()}>
               <i class="fas fa-chevron-left"></i>

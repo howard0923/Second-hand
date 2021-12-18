@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import axios from 'commons/axios';
+import axios from '../commons/axios';
 import Layout from 'Layout';
 import CartItem from 'components/CartItem';
 import { formatPrice } from 'commons/helper';

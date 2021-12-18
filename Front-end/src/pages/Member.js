@@ -8,21 +8,27 @@ import Transaction from "components/Transaction/Transaction"
 import Favorites from "components/Favorite/Favorites"
 import MemberSub from "components/Sub/MemberSub"
 import "../css/verify.css"
+import axios from "commons/axios"
+
+
 class Member extends React.Component {
   user = global.auth.getUser() || {}
 
   componentDidMount() {
     if (!global.auth.isLogin()) {
-       window.location.href = "http://140.117.71.141:3000/login";
+      this.props.history.push("/login")
       toast.info("Please Login First")
       return
     }
   }
 
+  
+
   logout = () => {
     global.auth.logout()
     this.props.history.push("/")
   }
+
   render() {
     return (
       
@@ -54,7 +60,7 @@ class Member extends React.Component {
           <TabPanel tabId="one">
             {global.auth.isLogin() ? (
               <UserProfiles user={this.user} />)
-              : window.location.href = "http://140.117.71.141:3000/login"
+              : this.props.history.push("/login")
             }
           </TabPanel>
           <TabPanel tabId="two">

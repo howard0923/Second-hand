@@ -1,28 +1,103 @@
 const express = require("express")
 const nodemailer = require('nodemailer');
-const cors = require("cors")
+const path = require("path");
 const bodyParser = require("body-parser")
 const jsonParser = bodyParser.json()
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
-const jwt = require("jsonwebtoken")
-const multer = require("multer")
-const upload = multer()
+const jwt = require("jsonwebtoken");
 //const bcrypt = require('bcrypt');
 const db = require("./db")
 const { cp } = require("fs");
+require('dotenv').config()
 //const util = require('util');
 
 const app = express()
+//Multer
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    const ext = file.mimetype.split("/")[1];
+    cb(null, Date.now() + '-' + file.originalname + ext);
+  }
+});
+const upload = multer({
+  storage: storage
+}).single('file');
 
-app.use(upload.array())
+
+//cors
+const cors = require("cors");
+app.use(cors({
+  origin: true,
+  credentials: true,
+}))
+
+
+app.use(bodyParser.json())
 app.use(urlencodedParser)
 app.use(express.json())
-app.use(cors())
+app.use(express.static("./uploads"))
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(jsonParser)
+
+//cloudinary
+const fileUploader = require('./cloudinary/config/cloudinary.config');
+
+let pIdArray= [];
+
+app.post("/api/cloudinaryUpload",(req,res,err) => {
+  fileUploader(req,res,function(err){
+    if(!req.files){
+      next(new Error('NO file uploaded'));
+      return;
+    }
+    const imageUrl = [];
+    for(let i =0;i < req.files.length;i++){
+      imageUrl.push([pIdArray[0],req.files[i].path]);
+    }
+    const sqlImageUrl = "INSERT INTO product_pic(pId,image) VALUES ?";
+    db.query(sqlImageUrl,[imageUrl],(err,result)=>{
+      if(err)
+      {
+        console.log(err)
+        pIdArray = [];
+      };
+      pIdArray = [];
+      return res.json({secure_url: imageUrl});
+    })
+  })
+})
+
+//圖片上傳
+// app.post("/api/imageUpload", (req, res, err) => {
+//   upload(req, res, function (err) {
+//     if (err instanceof multer.MulterError) {
+//       return res.status(500).json(err)
+//     } else if (err) {
+//       return res.status(500).json(err)
+//     }
+//     const image = req.file.filename;
+//     const sqlUploadImage = "INSERT INTO product_pic (pId,image) VALUES (6505,?)"
+//     db.query(sqlUploadImage,image,(err,result) =>{
+//       if(err) console.log(err)
+//       res.send({msg:'success upload!'});
+//     })
+//   })
+// })
+
+
+
+
 
 //會員專區
 app.post("/api/userProfiles", (req, res) => {
   const email = req.body.UserEmail
+  if (!email) {
+    return res.status(403).json("email not found");
+  }
   const sqlUserData =
     "SELECT * FROM user JOIN address ON user.uId = address.uId WHERE email = ?"
   db.query(sqlUserData, email, (err, result) => {
@@ -360,9 +435,9 @@ app.post("/api/payForPlan", (req, res) => {
     "UPDATE plan SET planId = ? WHERE  due_date = (SELECT MAX(due_date) FROM plan WHERE uId = ?)";
   const sqlProlongPlan =
     "UPDATE plan SET due_date = ? WHERE due_date = (SELECT MAX(due_date) FROM plan WHERE uId = ?)";
-  db.query(sqlVerifyCheck,uId,(err,rows) => {
-    if(err) console.log(err);
-    if(rows[0].IsVerified == 1){
+  db.query(sqlVerifyCheck, uId, (err, rows) => {
+    if (err) console.log(err);
+    if (rows[0].IsVerified == 1) {
       if (planStatus == '前往支付') {
         db.query(sqlAddPlan, [planId, uId, current, due_date], (err, result) => {
           if (err) console.log(err)
@@ -388,10 +463,10 @@ app.post("/api/payForPlan", (req, res) => {
           res.send({ message: '您的方案已延長' });
         })
       }
-    
+
     }
-    else{
-      res.send({message:'信箱尚未驗證'})
+    else {
+      res.send({ message: '信箱尚未驗證' })
     }
   })
 
@@ -520,7 +595,7 @@ app.post("/api/addCart", (req, res) => {
               if ((Date.parse(current)).valueOf() < (Date.parse(due_date)).valueOf()) {
                 db.query(sqlGetTransaction, uId, (err, rows) => {
                   if (err) console.log(err);
-                  if(rows.length > 0 && rows[0].isProductReturned == null){
+                  if (rows.length > 0 && rows[0].isProductReturned == null) {
                     res.send({ message: '您目前已租用其他商品' });
                   }
                   else {
@@ -541,7 +616,7 @@ app.post("/api/addCart", (req, res) => {
         })
 
       }
-      else{
+      else {
         res.send({ message: '此信箱尚未驗證，請先驗證信箱。' });
       }
     })
@@ -628,9 +703,14 @@ app.post("/api/confirmTransaction", (req, res) => {
 
 app.post("/api/backToStore", (req, res) => {
   const tId = req.body.tId;
+  const pId = req.body.pId;
+  const sqlUpdateStatus = "UPDATE product_status SET status = 'available' WHERE pId = ?";
   const sqlBackToStore = "UPDATE transaction SET isProductReturned = true, deliveryId = 3 WHERE tId = ?";
   db.query(sqlBackToStore, tId, (err, result) => {
     if (err) console.log(err);
+    db.query(sqlUpdateStatus,pId,(err,rows) => {
+      if(err) console.log(err);
+    })
     res.send(result);
   })
 })
@@ -673,42 +753,133 @@ app.put("/api/update", (req, res) => {
 })
 
 app.post("/api/insert", (req, res) => {
-  const name = req.body.name
-  const price = req.body.price
-  const tags = req.body.tags
-  const image = req.body.image
-  const status = req.body.status
-  console.log(req.body)
-  const sqlInsert = "INSERT INTO product (name, price, note) VALUES (?,?,?)"
-  const sqlGetPid = "SELECT pId FROM product WHERE name = ?"
-  const sqlInsertImage = "INSERT INTO product_pic (pId,image) VALUES (?,?)"
-  const sqlInsertStatus = "INSERT INTO product_status (pId,status) VALUES (?,?)"
-
-  db.query(sqlInsert, [name, price, tags], (err, result) => {
-    if (err) {
-      console.log(err)
+  const {name,brand,color,type,length,width,height,detail,note,price,buyPrice,level,status} = req.body;
+  const sqlInsertProduct = "INSERT INTO product (name,brandId,price,og_price,typeId,length,width,height,colorId,detail,note) \
+                            VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+  const sqlGetPId = "SELECT pId FROM product WHERE name =?";
+  const sqlCheckName = "SELECT name FROM product WHERE name = ?";
+  const sqlInsertStatus = "INSERT INTO product_status(pId,status) VALUES (?,?)";
+  
+  db.query(sqlCheckName,name,(err,rows)=>{
+    if(err) console.log(err);
+    if(rows.length>0){
+      const status = 401
+      const message = "product already exist"
+      return res.status(status).json({ status, message })
     }
-    db.query(sqlGetPid, name, (err, rows) => {
-      if (err) console.log(err)
-      const pId = rows[0].pId
-      db.query(sqlInsertImage, [pId, image], (err, result) => {
-        if (err) console.log(err)
+    else{
+      db.query(sqlInsertProduct,[name,brand,price,buyPrice,type,length,width,height,color,detail,note],(err,result) =>{
+        if(err) console.log(err);
+        db.query(sqlGetPId,name,(err,rows) => {
+          if(err) console.log(err)
+          const pId = rows[0].pId;
+          db.query(sqlInsertStatus,[pId,status],(err,result)=>{
+            if(err) console.log(err);
+            pIdArray.push(pId);
+            res.status(200).json({message:'add success'})
+          })
+        })
       })
-      db.query(sqlInsertStatus, [pId, status], (err, result) => {
-        if (err) console.log(err)
-      })
-    })
-    result = req.body
-    res.send(result)
+    }
   })
+  // db.query(sqlInsertProduct,[name,brand]
+  //   )
+  // const sqlInsert = "INSERT INTO product (name, price, note) VALUES (?,?,?)"
+  // const sqlGetPid = "SELECT pId FROM product WHERE name = ?"
+  // const sqlInsertImage = "INSERT INTO product_pic (pId,image) VALUES (?,?)"
+  // const sqlInsertStatus = "INSERT INTO product_status (pId,status) VALUES (?,?)"
+
+  // db.query(sqlInsert, [name, price, tags], (err, result) => {
+  //   if (err) {
+  //     console.log(err)
+  //   }
+  //   db.query(sqlGetPid, name, (err, rows) => {
+  //     if (err) console.log(err)
+  //     const pId = rows[0].pId
+  //     db.query(sqlInsertImage, [pId, image], (err, result) => {
+  //       if (err) console.log(err)
+  //     })
+  //     db.query(sqlInsertStatus, [pId, status], (err, result) => {
+  //       if (err) console.log(err)
+  //     })
+  //   })
+  //   result = req.body
+  //   res.send(result)
+  // })
 })
 
 //登入 註冊
 const SECRET = "12321JKLSJKLSDFJK23423432"
-const expiresIn = "1h"
+const expiresIn = "365d"
 const createToken = (payload) => {
   return jwt.sign(payload, SECRET, { expiresIn })
 }
+// const accessSECRET = "myAccessSecretKey"
+// const refreshSECRET = "myRefreshSecretKey"
+// //const expiresIn = "10s";
+// //const expiresInRefresh = "24h";
+// const createAccessToken = payload => {
+//   return jwt.sign(payload, accessSECRET, { expiresIn:"10s"})
+// }
+// const createRefreshToken = payload => {
+//   return jwt.sign(payload, refreshSECRET,{ expiresIn:"1h" })
+// }
+
+// let refreshTokens = []
+
+// app.post("/api/refresh", (req, res) => {
+//   // take the  refresh token from the user
+//   const refreshToken = req.body.refreshToken;
+//   console.log(req.body)
+//   //send error if there is no token or it's invalid
+//   if (!refreshToken) return res.status(401).json("You are not authenticated!")
+//   if (!refreshTokens.includes(refreshToken)) {
+//     return res.status(401).json("Refresh token is not valid");
+//   }
+//   jwt.verify(refreshToken, "myRefreshSecretKey", (err, user) => {
+//     err && console.log(err);
+//     refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+
+//     const newAccessToken = createAccessToken(user);
+//     const newRefreshToken = createRefreshToken(user);
+
+//     refreshTokens.push(newRefreshToken);
+//     return res.status(200).json({
+//       accessToken: newAccessToken,
+//       refreshToken: newRefreshToken
+//     })
+//   })
+//   //if everything is ok,create new access token,refresh token and send to user
+// })
+
+
+
+// const verify = (req, res, next) => {
+//   const authHeader = req.headers.authorization;
+//   if (authHeader) {
+//     const token = authHeader.split(" ")[1];
+
+//     jwt.verify(token, "myAccessSecretKey", (err, user) => {
+//       if (err) {
+//         return res.status(403).json("Token is valid!");
+//       }
+
+//       req.user = user;
+//       next();
+//     })
+//   } else {
+//     return res.status(401).json("you are not authenticated!")
+//   }
+// }
+
+
+// app.post("/api/logout",(req, res) => {
+//   const refreshToken = req.body.refreshToken;
+//   refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+//   console.log(refreshToken)
+//   return res.status(200).json("You logged out successfully.")
+// })
+
 
 app.post("/api/login", (req, res) => {
   const { email, password } = req.body
@@ -737,7 +908,6 @@ app.post("/api/login", (req, res) => {
     }
   })
 })
-
 //mail
 
 function Mail(address, token, subject, html) {
@@ -775,8 +945,6 @@ function Mail(address, token, subject, html) {
     try {
       const transport = nodemailer.createTransport(options);
       const result = await transport.sendMail(mail);
-      console.log('+++ Sent +++');
-      console.log(result);
     } catch (err) {
       console.log('--- Error ---');
       console.log(err);
@@ -885,6 +1053,7 @@ app.post("/api/checkPassword", (req, res) => {
 const crypto = require('crypto');
 const { parse } = require("path");
 const { application } = require("express");
+const exp = require("constants");
 //const { isRegExp } = require("util/types");
 const nBytes = 4;
 // Max value
@@ -902,7 +1071,7 @@ app.post("/api/updateToken", (req, res) => {
   const email = req.body.email;
   const subject = 'email信箱認證';
   const html = `<p> 認證碼如下</p>
-  <p>this is your token please copy and paset to site</p></b>`;
+  <p>請在網站輸入以下認證碼。</p></b>`;
   const sqlUpdate = "UPDATE user SET token = ? WHERE uId = ?";
   db.query(sqlUpdate, [token, uId], (err, result) => {
     if (err) console.log(err);
@@ -972,6 +1141,31 @@ app.post("/api/getToken", (req, res) => {
 })
 
 ////Admin///////
+
+app.get('/api/adminGetBrand', (req, res) => {
+  const sqlGetBrand = "SELECT * FROM brand";
+  db.query(sqlGetBrand, (err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  })
+})
+
+app.get('/api/adminGetColor', (req, res) => {
+  const sqlGetColor = "SELECT * FROM color";
+  db.query(sqlGetColor, (err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  })
+})
+
+app.get('/api/adminGetType', (req, res) => {
+  const sqlGetType = "SELECT * FROM type";
+  db.query(sqlGetType, (err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  })
+})
+
 app.get("/api/adminGetOrder", (req, res) => {
   const sqlGetOrder = "SELECT * FROM transaction";
   db.query(sqlGetOrder, (err, result) => {
@@ -1013,7 +1207,7 @@ app.post("/api/adminConfirmShip", (req, res) => {
   const uId = req.body.uId;
   const email = req.body.email;
   const tId = req.body.tId;
-  const sqlShipStaff = "UPDATE transaction SET staffId = ? , deliveryId = 1 WHERE tId = ?";
+  const sqlShipStaff = "UPDATE transaction SET staffId = ? , deliveryId = 2 WHERE tId = ?";
   const subject = '訂單已出貨';
   const html = `<p>您租用的商品已出貨</p>
   <p>請留意近期的訊息通知</p></b>`;

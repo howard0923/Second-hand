@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import axios from "axios"
+import axios from "../commons/axios"
 import { Link } from "react-router-dom"
 import { CSSTransition, TransitionGroup } from "react-transition-group"
 import Product from "components/Product"
@@ -28,7 +28,7 @@ const Classification = (props) => {
   const loadProducts = async () => {
     setIsLoading(true)
     try {
-      const response = await axios.post("http://140.117.71.141:3001/api/classifyProducts", { id, type, page })
+      const response = await axios.post("/api/classifyProducts", { id, type, page })
       setProducts((products) => [...products, ...response.data])
       if (response.data.length < 1) {
         setErrorMsg("此條件無結果")

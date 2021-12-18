@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import axios from '../../commons/axios';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Favorite from './Favorite';
 import Product from 'components/Product';
 import { withRouter } from 'react-router-dom';
-import { copyFileSync } from 'fs';
 
 class Favorites extends React.Component {
   state = {
@@ -27,7 +25,7 @@ class Favorites extends React.Component {
     const user = global.auth.getUser() || {};
     const uId = user.uId;
     try {
-      const response = await axios.post(`http://140.117.71.141:3001/api/favorite/?page=${page}`, { uId })
+      const response = await axios.post(`/api/favorite/?page=${page}`, { uId })
       this.setState((prevState) => ({
         products: [...prevState.products, ...response.data],
         errorMsg: "",
@@ -38,7 +36,10 @@ class Favorites extends React.Component {
       })
     } finally {
       this.setState({ isLoading: false })
-      document.getElementById("loadingAni").style.display = "none"
+      if(this.state.products.length > 0){
+        document.getElementById("loadingAni").style.display = "none"
+      }
+      
     }
     // this.updateCartNum()
   }
@@ -74,7 +75,7 @@ class Favorites extends React.Component {
 
 
   render() {
-    const { isLoading, errorMsg } = this.state
+    const { isLoading, errorMsg,products } = this.state;
     return (
       <div>
         {errorMsg && <p className="errorMsg">{errorMsg}</p>}
@@ -96,16 +97,21 @@ class Favorites extends React.Component {
             </button>
           )}
         </div>
-        <div className="loadingAni">
-          <img
-            className="loadingAni2"
-            id="loadingAni"
-            src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif"
-          ></img>
-        </div>
-        <button id="moreProduct" onClick={this.loadMore} className="btn-grad loadingbutton">
-          {isLoading ? "Loading..." : "Load More"}
-        </button>
+        {products.length == 0 ? null
+          :
+          <div>
+            <div className="loadingAni">
+              <img
+                className="loadingAni2"
+                id="loadingAni"
+                src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif"
+              ></img>
+            </div>
+            <button id="moreProduct" onClick={this.loadMore} className="btn-grad loadingbutton">
+              {isLoading ? "Loading..." : "Load More"}
+            </button>
+          </div>
+        }
       </div>
     );
   }

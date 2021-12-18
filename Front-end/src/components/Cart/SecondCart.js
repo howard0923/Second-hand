@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Detail from '../../images/Detail.png';
 import { Link } from 'react-router-dom';
 import Layout from '../../Layout';
 import Customer from 'components/Transaction/Customer';
 import Delivery from 'components/Transaction/Delivery';
-import axios from 'commons/axios';
-import { toast } from 'react-toastify';
+import axios from '../../commons/axios';
 export default function SecondCart(props) {
   const product = props.location.state.product;
-  const { pId, name, price, og_price, level, length, width, height, detail, note } = props.location.state.product;
+  const { pId, name, price} = props.location.state.product;
   const FirstImage = props.location.state.image;
   const user = global.auth.getUser() || {}
   const UserEmail = user.email;
@@ -18,7 +16,7 @@ export default function SecondCart(props) {
   const RequestUserProfile = async () => {
     try {
       const result = await axios.post(
-        "http://140.117.71.141:3001/api/userProfiles",
+        "/api/userProfiles",
         {
           UserEmail,
           isStaff
@@ -38,7 +36,7 @@ export default function SecondCart(props) {
 
   const handleSubmit = async () => {
     try{
-      const res = await axios.post("http://140.117.71.141:3001/api/addOrder", {
+      await axios.post("/api/addOrder", {
         pId,
         uId,
         isStaff

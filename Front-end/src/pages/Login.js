@@ -81,11 +81,11 @@ export default function Login(props) {
           </div>
         </div>
         <div className="control martb30px">
-          <button className="loginbtn martb30px">Log In</button>
+          <button className="loginbtn martb20px">Log In</button>
         </div>
         <Link to="/forgetPassword">
-          <div className="control martb30px">
-            <button className="loginbtn martb30px">忘記密碼</button>
+          <div className="control martb20px">
+            <button className="loginbtn martb10px">忘記密碼</button>
           </div>
         </Link>
       </form>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from 'Layout';
 import AdminOrderDetail from 'components/Admin/AdminOrderDetail';
 import AdminCustomerDetail from 'components/Admin/AdminCustomerDetail';
-import axios from 'commons/axios';
+import axios from '../commons/axios';
 import { toast } from 'react-toastify';
 
 export default function ShipmentConfirm(props) {
@@ -17,7 +17,7 @@ export default function ShipmentConfirm(props) {
     const RequestProduct = async () => {
         try {
             const result = await axios.post(
-                "http://140.117.71.141:3001/api/adminGetTransactionProduct", { pId }
+                "/api/adminGetTransactionProduct", { pId }
             )
             setProduct(result.data[0]);
         }
@@ -29,7 +29,7 @@ export default function ShipmentConfirm(props) {
     const RequestCustomerProfile = async () => {
         try {
             const result = await axios.post(
-                "http://140.117.71.141:3001/api/adminCustomerProfile", { uId }
+                "/api/adminCustomerProfile", { uId }
             )
             setCustomer(result.data[0]);
         }
@@ -41,7 +41,7 @@ export default function ShipmentConfirm(props) {
     const RequestPlan = async () => {
         try {
             const result = await axios.post(
-                "http://140.117.71.141:3001/api/adminGetPlan", { uId }
+                "/api/adminGetPlan", { uId }
             )
             setPlan(result.data[0]);
         }
@@ -55,10 +55,12 @@ export default function ShipmentConfirm(props) {
             const user = global.auth.getUser() || {};
             const uId = user.uId;
             const result = await axios.post(
-                "http://140.117.71.141:3001/api/adminConfirmShip", { uId, email, tId }
+                "/api/adminConfirmShip", { uId, email, tId }
             )
             toast.success(result.data.message)
-            window.location.href = "http://140.117.71.141:3000/adminorder";
+            props.history.push({
+                pathname: '/adminorder'
+              })
         }
         catch (err) {
             console.log(err);

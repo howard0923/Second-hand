@@ -13,14 +13,22 @@ const Rules = (props) => {
           <div className="column title is-narrow">會員條款</div>
         </div>
         {/* <div class="content is-medium"> */}
-        <div>「精品訂閱平臺」網站為...股份有限公司(以下稱「本網站」、「本公司」、「我們」)所建置及提供之服務， 
+        <div class="textjustify marginlrauto w90per quespad">
+          「精品訂閱平臺」網站為...股份有限公司(以下稱「本網站」、「本公司」、「我們」)所建置及提供之服務， 
           本公司之服務係提供出租/出售方會員(下稱出租/出售方)與租借/購買方會員(下稱租借/購買方)(統稱為”會員””您”)之間
           在平台進行商品租借及買賣的場所和機會； 會員須自行定期追蹤平台訂單狀態，並依平台網站流程指示出貨或歸還商品
           (以下稱「本服務」、「本平台」)，為了保障您的使用權益，所有使用或造訪本服務的使用者 
           （包括未註冊成為會員以及註冊會員之使用者）（以下簡稱「使用者」、「會員」 或「您」），都應詳細閱讀本服務條款。
           本服務條款構成您與本公司之約定 （以下簡稱「本服務條款」），一旦您開始使用本服務、或完成註冊時，
-          即視為您已閱讀、暸解、並同意接受本服務條款之所有內容。</div>
-        <table class="has-text-left fontlarge marginlrauto w95per">
+          即視為您已閱讀、暸解、並同意接受本服務條款之所有內容。
+        </div>
+        <div class="has-text-left fontlarge marginlrauto w90per">
+            <div class="has-text-weight-bold quespad textjustify">條款1</div>
+            <div class="tableborder1 answerpad textjustify">...</div>
+            <div class="has-text-weight-bold quespad textjustify">條款2</div>
+            <div class="tableborder2 answerpad textjustify">...</div>
+        </div>
+        {/* <table class="has-text-left fontlarge marginlrauto w90per">
           <tbody>
             <tr>
               <td class="pl-2 has-text-weight-bold tableborder1 tablepad1">
@@ -35,7 +43,7 @@ const Rules = (props) => {
               <td class="tableborder2 tablepad2">...</td>
             </tr>
           </tbody>
-        </table>
+        </table> */}
         {/* </div> */}
       </section>
     </Layout>

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import axios from "axios";
+import axios from "../commons/axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Layout from "Layout";
@@ -22,7 +22,7 @@ export default function ResetPassword(props) {
         if (isNeedPassword) {
             try {
                 const { password } = data;
-                const res = await axios.post("http://140.117.71.141:3001/api/checkPassword", {
+                const res = await axios.post("/api/checkPassword", {
                     password, email
                 });
                 if(res.data.length > 0){
@@ -36,7 +36,7 @@ export default function ResetPassword(props) {
         else {
             try {
                 const { password } = data;
-                const res = await axios.post("http://140.117.71.141:3001/api/resetPassword", {
+                const res = await axios.post("/api/resetPassword", {
                     password, email
                 });
                 toast.success(res.data)

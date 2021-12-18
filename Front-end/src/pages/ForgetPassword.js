@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../commons/axios';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Layout from 'Layout';
@@ -35,7 +35,7 @@ export default function ForgetPassword(props) {
       try {
         const { email } = data;
         setTmpEmail(data.email);
-        const res = await axios.post('http://140.117.71.141:3001/api/getToken', { email });
+        const res = await axios.post('/api/getToken', { email });
         setC_token(res.data);
         setIsEmail(true);
         toast.info("認證信已寄至您輸入的信箱")
