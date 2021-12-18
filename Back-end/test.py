@@ -11,13 +11,14 @@ from dataset_handler import DatasetHandler
 
 
 db_settings = {
-    "host": "140.117.71.141",
-    "port": 3306,
-    "user": "team",
-    "password": "520",
-    "db": "test",
+    "host": "",
+    "port": "",
+    "user": "",
+    "password": "",
+    "db": "",
     "charset": "utf8"
 }
+#your own database
 
 
 #宣告 dataset_handler透過 dataset_handler module來執行 dataset100k檔案
