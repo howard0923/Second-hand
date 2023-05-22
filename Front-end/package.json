@@ -25,7 +25,7 @@
     "react-multilevel-sidebar": "^1.0.4",
     "react-responsive-carousel": "^3.2.19",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.1",
     "react-scroll-pagination": "^0.1.10",
     "react-scrollmagic": "^2.3.0",
     "react-sidebar": "^3.0.2",
@@ -39,7 +39,7 @@
     "swiper": "^6.8.4"
   },
   "scripts": {
-    "start": "set HTTPS=false&&react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

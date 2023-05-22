@@ -1,0 +1,62 @@
+{
+  "name": "react-store",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@react-icons/all-files": "^4.1.0",
+    "axios": "^0.21.4",
+    "axios-auth-refresh": "^3.2.1",
+    "bulma": "^0.9.2",
+    "crypto": "^1.0.1",
+    "fs": "0.0.1-security",
+    "jwt-decode": "^3.1.2",
+    "node-sass": "^6.0.1",
+    "nodemailer": "^6.6.5",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-addons-update": "^15.6.3",
+    "react-bulma-components": "^4.0.7",
+    "react-dom": "^17.0.2",
+    "react-heart": "^1.0.6",
+    "react-hook-form": "^7.9.0",
+    "react-icons": "^4.3.1",
+    "react-image-pagination": "^1.0.2",
+    "react-multilevel-sidebar": "^1.0.4",
+    "react-responsive-carousel": "^3.2.19",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-scroll-pagination": "^0.1.10",
+    "react-scrollmagic": "^2.3.0",
+    "react-sidebar": "^3.0.2",
+    "react-toastify": "^7.0.4",
+    "react-transition-group": "^4.4.1",
+    "react-twzipcode": "^3.0.0",
+    "react-usestateref": "^1.0.5",
+    "react-web-tabs": "^1.0.1",
+    "serve": "^12.0.0",
+    "styled-components": "^5.3.0",
+    "swiper": "^6.8.4"
+  },
+  "scripts": {
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
