@@ -1,8 +1,5 @@
 # Luxury Second-hand Subscription with Blockchain Verification System
 
-## Website Link
-[Click here to visit](http://140.117.71.141:3000/)
-
 ## Demonstration Video
 [YouTube Link](https://www.youtube.com/watch?v=pWaJ1R3yZjU)
 
